@@ -31,9 +31,6 @@ typedef struct cpu
 #define PRN 0b01000111
 // TODO: more instructions here. These can be used in cpu_run().
 #define NOP 0b00000000
-#define MUL 0b10100010
-#define ADD 0b10100000
-#define CMP 0b10100111
 #define PUSH 0b01000101
 #define POP 0b01000110
 #define CALL 0b01010000
@@ -41,7 +38,16 @@ typedef struct cpu
 #define JMP 0b01010100
 #define JEQ 0b01010101 
 #define JNE 0b01010110
-
+// ALU ops
+#define MUL 0b10100010
+#define ADD 0b10100000
+#define CMP 0b10100111
+#define AND  10101000 
+#define NOT  01101001
+#define OR   10101010 
+#define XOR  10101011 
+#define SHL  10101100 
+#define SHR  10101101 
 
 #define SP 7
 

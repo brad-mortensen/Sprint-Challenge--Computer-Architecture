@@ -58,6 +58,24 @@ void alu(struct cpu *cpu, unsigned char op, unsigned char regA, unsigned char re
 {
   switch (op)
   {
+  case AND:
+    cpu->registers[regA] = cpu->registers[regA] & cpu->registers[regB];
+    break;
+  case NOT:
+    cpu->registers[regA] = ~cpu->registers[regA];
+    break;
+  case OR:
+    cpu->registers[regA] = cpu->registers[regA] | cpu->registers[regB];
+    break;
+  case XOR:
+    cpu->registers[regA] = cpu->registers[regA] ^ cpu->registers[regB];
+    break;
+  case SHL:
+    cpu->registers[regA] = cpu->registers[regA] << cpu->registers[regB];
+    break;
+  case SHR:
+    cpu->registers[regA] = cpu->registers[regA] >> cpu->registers[regB];
+    break;
   case MUL:
     cpu->registers[regA] = cpu->registers[regA] * cpu->registers[regB];
     break;
@@ -130,11 +148,6 @@ void cpu_run(struct cpu *cpu)
         {
           cpu->PC = cpu->registers[operandA] - ops;
         }
-        else
-        {
-          printf("somethings still wrong in jeq\n");
-        }
-        
         break;
       case JMP:
         cpu->PC = cpu->registers[operandA] - ops;
