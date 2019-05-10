@@ -65,12 +65,12 @@ void alu(struct cpu *cpu, unsigned char op, unsigned char regA, unsigned char re
     cpu->registers[regA] = cpu->registers[regA] + cpu->registers[regB];
     break;
   case CMP:
-    if (regA == regB)
+    if (cpu->registers[regA] == cpu->registers[regB])
     {
       // set the equal flag on
       cpu->FL |= 0b00000001;
     }
-    else if (regA < regB)
+    else if (cpu->registers[regA] == cpu->registers[regB])
     {
       // Set the L flag on
       cpu->FL |= 0b00000100;
@@ -122,17 +122,22 @@ void cpu_run(struct cpu *cpu)
       case JNE:
         if ((cpu->FL & 0b00000001) != 1)
         {
-          cpu->PC = cpu->registers[operandA];
+          cpu->PC = cpu->registers[operandA] - ops;
         }
         break;
       case JEQ:
         if ((cpu->FL & 0b00000001) == 1)
         {
-          cpu->PC = cpu->registers[operandA];
+          cpu->PC = cpu->registers[operandA] - ops;
         }
+        else
+        {
+          printf("somethings still wrong in jeq\n");
+        }
+        
         break;
       case JMP:
-        cpu->PC = cpu->registers[operandA];
+        cpu->PC = cpu->registers[operandA] - ops;
       case CALL:
         // Push return address to the stack
         cpu->registers[SP]--;
